@@ -1,0 +1,1 @@
+(1, ['Agent', 'Biomolecule', 'CelestialBody', 'ChemicalSubstance', 'Device', 'Event', 'Location', 'MeanOfTransportation', 'Organisation', 'Person', 'Place', 'Species', 'SportsSeason', 'Work', 'other'])

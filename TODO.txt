@@ -1,0 +1,53 @@
+Branching:
+ master
+ | mrs
+ | | mrs_serve - now merged with master
+
+mrs_gp1_0.py - is the initial version, works with communicate, but
+only get about a 4x speedup, which maybe isn't that nice.  possible
+that it would be better with more asynchronous behavior.  mrs_gp.py is
+the working version.
+
+TODO for mrs_gp.py:
+ - test on processes with errors, ....
+ - server timeout, for security, in case I leave it running...?
+ - add an 'abort task' method for server...? or maybe kill client thread?
+
+ROBUSTNESS/ERRORS/DOCS:
+ - writeup smallvoc-tfidf.py as an example
+ -- should I round-trip serialized outputs, to make sure they can be read back in?
+ -- better docs for Augment?
+ -- document it needs unix, python 2.7
+ -- document lack of UDF's
+
+FUNCTIONALITY
+
+to add:
+ - allow --make as synonym for --store
+ - write and document an efficient Count (see mrs_test/mrs-naive-bayes.py)
+ - OutputOfShellCommand(command=[],sideviews=[],shipping=[])
+ - OutputOfStreamingMapReduce(view1, mapper='shell command', reducer='shell command', combiner='shell command', sideviews=..., shipping=[f1,..,fk]) 
+ --- define class StreamingMapReduce(MapReduce): which knows how to doExternalMap and doExternalReduce, etc via subprocesses
+ --- this could be a gpextras view
+
+   subclass of Augment, where inners=[], and rowGenerator runs the
+   shell command as subprocess, stores the result, and then uses the
+   ReadLines generator to produce the result
+
+ - add user-defined Reuse(FILE) ? (why do I want this again? for make-style pipelines? is it really needed?)
+ - gpextras, for debugging:
+ -- PPrint?
+ -- Wrap?
+ -- WholeTextFiles?
+
+ - cleanup
+ -- standardize view.by argument
+ -- clean up.gpmo and other tmp files? could do this via analysis at the AbstractMapReduceTask lst level
+ -- log created views so you can continue with --reuse `cat foo.log|grep ^created|cut -f2`
+ -- maybe add --config logging:warn,...
+
+DOCS:
+ - some longer examples for the tutorial (phirl-naive? tfidfs?)
+ - document planner.ship, planner.setEvaluator
+
+
